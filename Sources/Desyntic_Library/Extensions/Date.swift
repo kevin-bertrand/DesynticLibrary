@@ -9,7 +9,7 @@ import Foundation
 
 extension Date {
     /// Getting number of years since date
-    private func getYearSinceDate() -> Int {
+    public func getYearSinceDate() -> Int {
         let calendar = Calendar.current
         let date = Date()
         let currentYear = calendar.component(.year, from: date)
@@ -30,17 +30,17 @@ extension Date {
     }
     
     /// Return a date to a string dd/MM/YYYY
-    var asString: String {
+    public var asString: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/YYYY"
         return formatter.string(from: self)
     }
     
-    var day: Int { Calendar.current.component(.day, from: self) }
-    var month: Int { Calendar.current.component(.month, from: self) }
-    var year: Int { Calendar.current.component(.year, from: self) }
+    public var day: Int { Calendar.current.component(.day, from: self) }
+    public var month: Int { Calendar.current.component(.month, from: self) }
+    public var year: Int { Calendar.current.component(.year, from: self) }
     
-    var hour: Int { Calendar.current.component(.hour, from: self) }
-    var minutes: Int { Calendar.current.component(.minute, from: self) }
-    var seconds: Int { Calendar.current.component(.second, from: self) }
+    public var hour: Int { Calendar.current.component(.hour, from: self) }
+    public var minutes: Int { Calendar.current.component(.minute, from: self) }
+    public var seconds: Int { Calendar.current.component(.second, from: self) }
 }
