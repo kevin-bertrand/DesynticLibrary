@@ -22,8 +22,10 @@ struct CheckAppVersion: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onAppear {
-                if !isAlreadyCheck {
-                    checkAppVersion()
+                DispatchQueue.main.async {
+                    if !isAlreadyCheck {
+                        self.checkAppVersion()
+                    }
                 }
             }
     }
