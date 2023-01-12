@@ -50,13 +50,10 @@ struct FocusInputForiOS14: ViewModifier {
 
 extension View {
     /// Make a view a navigation Stack/View
+    @available(iOS 15.0, *)
     public func focusInput(totalInputs: Int, inputId: Int, currentFocusId: Binding<Int>) -> some View {
-        if #available(iOS 15.0, *) {
-            return modifier(FocusInput(selectedFocuseId: currentFocusId,
-                                       totalInputs: totalInputs,
-                                       inputId: inputId))
-        } else {
-            return modifier(FocusInputForiOS14())
-        }
+        return modifier(FocusInput(selectedFocuseId: currentFocusId,
+                                   totalInputs: totalInputs,
+                                   inputId: inputId))
     }
 }
