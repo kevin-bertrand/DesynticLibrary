@@ -22,7 +22,7 @@ struct CheckAppVersion: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onAppear {
-                DispatchQueue.main.async {
+                DispatchQueue.global().async {
                     if !isAlreadyCheck {
                         self.checkAppVersion()
                     }
@@ -37,54 +37,55 @@ struct CheckAppVersion: ViewModifier {
     }
     
     /// Getting AppStore version
-    private func getAppStoreVersion(url: URL) -> String? {
-        guard let data = try? Data(contentsOf: url),
-              let json = try? JSONSerialization.jsonObject(with: data, options: [.fragmentsAllowed]) as? [String: Any],
-              let result = (json["result"] as? [Any])?.first as? [String: Any],
-              let version = result["version"] as? String else {
-            return nil
-        }
-        
-        return version
-    }
-    
-    /// Getting AppStore app url
-    private func getAppStoreUrl() -> URL? {
+    private func getAppStoreInformations() -> (String?, Int?) {
         guard let identifier = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String,
-              let url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(identifier)") else {
-            return nil
+              let url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(identifier)"),
+              let data = try? Data(contentsOf: url),
+              let json = try? JSONSerialization.jsonObject(with: data, options: [.fragmentsAllowed]) as? [String: Any],
+              let result = (json["results"] as? [Any])?.first as? [String: Any],
+              let version = result["version"] as? String,
+              let trackId = result["trackId"] as? Int else {
+            return (nil, nil)
         }
-        
-        return url
-    }
     
+        return (version, trackId)
+    }
+        
     /// Checking app version according to the AppStore version
     private func checkAppVersion() {
+        let (appStoreVersion, trackId) = getAppStoreInformations()
+        
         guard let currentAppVersion = getCurrentAppVersion(),
-              let url = getAppStoreUrl(),
-              let appStoreVersion = getAppStoreVersion(url: url),
-        currentAppVersion != appStoreVersion else {
+              let appStoreVersion = appStoreVersion,
+              let trackId = trackId,
+              let appStoreUrl = URL(string: "itms-apps://itunes.apple.com/app/id\(trackId)"),
+              currentAppVersion != appStoreVersion else {
             return
         }
         
         self.isAlreadyCheck = true
         
-        EmptyView()
-            .alertView(title: mustUpdateTitle,
-                       message: mustUpdateMessage,
-                       primaryTitle: mustUpdateButton,
-                       secondaryTitle: cancelButton,
-                       primaryAction: {
-                if UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url)
-                }
-            })
+        DispatchQueue.main.async {
+            EmptyView()
+                .alertView(title: mustUpdateTitle,
+                           message: mustUpdateMessage,
+                           primaryTitle: mustUpdateButton,
+                           secondaryTitle: cancelButton,
+                           primaryAction: {
+                    if UIApplication.shared.canOpenURL(appStoreUrl) {
+                        UIApplication.shared.open(appStoreUrl)
+                    }
+                })
+        }
     }
 }
 
 extension View {
     /// Make a view a navigation Stack/View
     public func checkAppVersion(mustUpdateMessage: String, mustUpdateTitle: String, mustUpdateButton: String, cancelButton: String) -> some View {
-        modifier(CheckAppVersion(mustUpdateMessage: mustUpdateMessage, mustUpdateTitle: mustUpdateTitle, mustUpdateButton: mustUpdateButton, cancelButton: cancelButton))
+        modifier(CheckAppVersion(mustUpdateMessage: mustUpdateMessage,
+                                 mustUpdateTitle: mustUpdateTitle,
+                                 mustUpdateButton: mustUpdateButton,
+                                 cancelButton: cancelButton))
     }
 }
