@@ -10,7 +10,7 @@ import SwiftUI
 
 extension View {
     /// Showing alert view with text field
-    func alertWithTextField(title: String,
+    public func alertWithTextField(title: String,
                             message: String,
                             hintText: String,
                             primaryTitle: String,
@@ -38,7 +38,7 @@ extension View {
     }
     
     /// Showing standard alert view
-    func alertView(title: String,
+    public func alertView(title: String,
                    message: String,
                    primaryTitle: String,
                    secondaryTitle: String? = nil,
