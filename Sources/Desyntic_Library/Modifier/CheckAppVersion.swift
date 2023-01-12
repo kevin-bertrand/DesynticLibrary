@@ -67,6 +67,8 @@ struct CheckAppVersion: ViewModifier {
             return
         }
         
+        self.isAlreadyCheck = true
+        
         EmptyView()
             .alertView(title: mustUpdateTitle,
                        message: mustUpdateMessage,
