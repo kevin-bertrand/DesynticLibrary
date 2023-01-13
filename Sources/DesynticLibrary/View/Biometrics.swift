@@ -26,19 +26,23 @@ public struct BiometricView: View {
     // MARK: Body
     public var body: some View {
         if isAvailable && condition  {
-            Button {
-                action()
-            } label: {
-                Image(systemName: (laContext.biometryType == .faceID) ? "faceid" : "touchid")
-                    .resizable()
-                    .frame(width: 75, height: 75)
-            }
-            .padding(.horizontal)
-            .onAppear {
-                withAnimation {
-                    isAvailable = laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
-                                                              error: .none)
+            VStack {
+                Button {
+                    action()
+                } label: {
+                    Image(systemName: (laContext.biometryType == .faceID) ? "faceid" : "touchid")
+                        .resizable()
+                        .frame(width: 75, height: 75)
                 }
+                .padding(.horizontal)
+                .onAppear {
+                    withAnimation {
+                        isAvailable = laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+                                                                  error: .none)
+                    }
+                }
+                
+                Spacer()
             }
         } else {
             EmptyView()
