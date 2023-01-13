@@ -17,6 +17,12 @@ public struct BiometricView: View {
     private let laContext = LAContext()
     var action: () -> Void
     
+    // MARK: Initialization
+    public init(condition: Bool = true, action: @escaping () -> Void) {
+        self.condition = condition
+        self.action = action
+    }
+    
     // MARK: Body
     public var body: some View {
         if isAvailable && condition  {
