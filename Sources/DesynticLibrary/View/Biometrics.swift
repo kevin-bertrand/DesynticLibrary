@@ -8,7 +8,7 @@
 import LocalAuthentication
 import SwiftUI
 
-struct SwiftUIView: View {
+public struct SwiftUIView: View {
     // MARK: State properties
     @State private var isAvailable: Bool = false
     
@@ -18,7 +18,7 @@ struct SwiftUIView: View {
     var action: () -> Void
     
     // MARK: Body
-    var body: some View {
+    public var body: some View {
         if isAvailable && condition  {
             Button {
                 action()
