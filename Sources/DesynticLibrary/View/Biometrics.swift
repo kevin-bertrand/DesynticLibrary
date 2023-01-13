@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  BiometricView.swift
 //  
 //
 //  Created by Kevin Bertrand on 13/01/2023.
@@ -8,7 +8,7 @@
 import LocalAuthentication
 import SwiftUI
 
-public struct SwiftUIView: View {
+public struct BiometricView: View {
     // MARK: State properties
     @State private var isAvailable: Bool = false
     
@@ -40,8 +40,8 @@ public struct SwiftUIView: View {
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct BiometricView_Previews: PreviewProvider {
     static var previews: some View {
-        SwiftUIView(action: {})
+        BiometricView(action: {})
     }
 }
