@@ -21,9 +21,4 @@ public class BiometricManager {
             }
         }
     }
-    
-    static public var isBiometricAvailable: Bool {
-        let laContext = LAContext()
-        return laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: .none)
-    }
 }
