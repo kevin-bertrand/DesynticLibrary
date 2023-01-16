@@ -12,14 +12,17 @@ public struct BiometricView: View {
     // MARK: State properties
     @State private var isAvailable: Bool = false
     
+    // MARK: Binding properties
+    @Binding var condition: Bool
+    
     // MARK: Properties
-    var condition = true
     private let laContext = LAContext()
     var action: () -> Void
     
     // MARK: Initialization
-    public init(condition: Bool = true, action: @escaping () -> Void) {
-        self.condition = condition
+    public init(condition: Binding<Bool> = .constant(true),
+                action: @escaping () -> Void) {
+        self._condition = condition
         self.action = action
     }
     
