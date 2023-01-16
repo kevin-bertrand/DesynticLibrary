@@ -8,7 +8,7 @@
 import Foundation
 import LocalAuthentication
 
-class BiometricManager {
+public class BiometricManager {
     static public func activateBiometric(message: String, completionHandler: @escaping (Bool) -> Void) {
         var error: NSError?
         let laContext = LAContext()
