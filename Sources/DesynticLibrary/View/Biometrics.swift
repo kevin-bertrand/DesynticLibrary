@@ -49,6 +49,7 @@ public struct BiometricView: View {
                     Spacer()
                 }
             } else {
+                Text("Ok")
                 EmptyView()
             }
         }
