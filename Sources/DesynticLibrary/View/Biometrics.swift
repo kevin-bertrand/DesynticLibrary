@@ -31,6 +31,8 @@ public struct BiometricView: View {
         Group {
             if isAvailable && condition  {
                 VStack {
+                    Spacer()
+                    
                     Button {
                         action()
                     } label: {
@@ -45,18 +47,14 @@ public struct BiometricView: View {
                                                                       error: .none)
                         }
                     }
-                    
-                    Spacer()
                 }
             } else {
-                Text("Ok")
                 EmptyView()
             }
         }
         .onAppear {
             withAnimation {
                 isAvailable = laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: .none)
-                print("Avaiblable: \(isAvailable)")
             }
         }
     }
