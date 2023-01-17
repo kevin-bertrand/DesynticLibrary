@@ -56,6 +56,7 @@ public struct BiometricView: View {
         .onAppear {
             withAnimation {
                 isAvailable = laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: .none)
+                print("Avaiblable: \(isAvailable)")
             }
         }
     }
