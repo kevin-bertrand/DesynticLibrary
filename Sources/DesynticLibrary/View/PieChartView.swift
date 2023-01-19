@@ -58,7 +58,7 @@ public struct PieChartView: View {
             print(PieChartView.ANIMATION_DURATION * percent)
             encodedValues.append(.init(id: index,
                                        value: value,
-                                       percent: percent,
+                                       percent: percent * 100,
                                        name: name,
                                        startAngle: endAngle,
                                        endAngle: currentEndAngle,
@@ -227,6 +227,7 @@ public struct PieChartView: View {
                         }
                     }
                 }
+                .padding()
             }
         )
     }
