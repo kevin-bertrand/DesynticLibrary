@@ -55,7 +55,6 @@ public struct PieChartView: View {
             let angle = 1 * percent
             
             let currentEndAngle: CGFloat = endAngle + angle
-            print(PieChartView.ANIMATION_DURATION * percent)
             encodedValues.append(.init(id: index,
                                        value: value,
                                        percent: percent * 100,
