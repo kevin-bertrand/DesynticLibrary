@@ -75,23 +75,29 @@ public struct PieChartView: View {
     // MARK: Body
     public var body: some View {
         VStack {
-            ZStack {
-                Group {
-                    if showDetail {
-                        Text(details)
-                    } else if showTotal {
-                        Text("\(total)\(symbol != "" ? " \(symbol)" : "")")
+            Group {
+                if values.allSatisfy({$0.value == 0}) {
+                    Text(NSLocalizedString("no_data", comment: ""))
+                } else {
+                    ZStack {
+                        Group {
+                            if showDetail {
+                                Text(details)
+                            } else if showTotal {
+                                Text("\(total)\(symbol != "" ? " \(symbol)" : "")")
+                            }
+                        }
+                        .multilineTextAlignment(.center)
+                        .font(chartScale >= 1 ? .largeTitle.bold() : .title3.bold())
+                        .padding(60)
+                        
+                        ForEach(values) { value in
+                            getArcCircle(value: value)
+                                .animation(Animation.linear(duration: value.duration), value: animationStroke)
+                        }
+                        .rotationEffect(.degrees(-90))
                     }
                 }
-                .multilineTextAlignment(.center)
-                .font(chartScale >= 1 ? .largeTitle.bold() : .title3.bold())
-                .padding(60)
-                
-                ForEach(values) { value in
-                    getArcCircle(value: value)
-                        .animation(Animation.linear(duration: value.duration), value: animationStroke)
-                }
-                .rotationEffect(.degrees(-90))
             }
             .padding(30)
         
