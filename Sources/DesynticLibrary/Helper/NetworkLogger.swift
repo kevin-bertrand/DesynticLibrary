@@ -7,8 +7,8 @@
 
 import Foundation
 
-class NetworkLogger {
-    static func log(request: URLRequest) {
+public class NetworkLogger {
+    public static func log(request: URLRequest) {
        print("\n - - - - - - - - - - OUTGOING - - - - - - - - - - \n")
        defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
        let urlAsString = request.url?.absoluteString ?? ""
@@ -31,7 +31,7 @@ class NetworkLogger {
        print(output)
     }
     
-    static func log(response: HTTPURLResponse?, data: Data?, error: Error?) {
+    public static func log(response: HTTPURLResponse?, data: Data?, error: Error?) {
        print("\n - - - - - - - - - - INCOMMING - - - - - - - - - - \n")
        defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
        let urlString = response?.url?.absoluteString
