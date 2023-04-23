@@ -1,5 +1,5 @@
 import XCTest
-@testable import DesynticLibrary
+@testable import Desyntic
 
 final class Desyntic_Library_Tests: XCTestCase {
     func testExample() throws {

@@ -24,6 +24,7 @@ public struct BiometricView: View {
                 action: @escaping () -> Void) {
         self._condition = condition
         self.action = action
+        self.isAvailable = laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: .none)
     }
     
     // MARK: Body
@@ -50,11 +51,6 @@ public struct BiometricView: View {
                 }
             } else {
                 EmptyView()
-            }
-        }
-        .onAppear {
-            withAnimation {
-                isAvailable = laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: .none)
             }
         }
     }
