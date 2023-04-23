@@ -23,8 +23,6 @@ public struct BiometricView: View {
         self._biometricManager = StateObject(wrappedValue: BiometricManager())
         self._condition = condition
         self.action = action
-        print("Is active: \(BiometricManager.isActive)")
-        print("Condition: \(condition)")
     }
     
     // MARK: Body
@@ -32,16 +30,14 @@ public struct BiometricView: View {
         Group {
             if BiometricManager.isActive && condition  {
                 VStack {
-                    Spacer()
-                    
                     Button {
                         action()
                     } label: {
                         Image(systemName: (BiometricManager.laContext.biometryType == .faceID) ? "faceid" : "touchid")
                             .resizable()
-                            .frame(width: 75, height: 75)
+                            .frame(width: 50, height: 50)
                     }
-                    .padding(.horizontal)
+                    .padding()
                 }
             } else {
                 EmptyView()
