@@ -12,12 +12,12 @@
 		<key>Desyntic.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>3</integer>
 		</dict>
 		<key>DesynticLibrary.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 		<key>Desyntic_Library.xcscheme_^#shared#^_</key>
 		<dict>

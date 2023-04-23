@@ -37,7 +37,7 @@ let package = Package(
                     ]),
         .testTarget(
             name: "DesynticLibraryTests",
-            dependencies: ["Desyntic"]),
+            dependencies: ["DesynticLibrary"]),
     ],
     swiftLanguageVersions: [.v5]
 )
